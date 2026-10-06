@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Debug installs are test-only so a device owner set during provisioning
+        can be cleared with adb. Release installs are not test-only.
+    -->
+    <application android:testOnly="true" />
+
+</manifest>
