@@ -46,6 +46,22 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.isReturnDefaultValues = true
+    }
+}
+
+tasks.withType(org.gradle.api.tasks.testing.Test::class.java).configureEach {
+    val slideOut = project.findProperty("SLIDE_OUT")?.toString().orEmpty()
+    val frameOut = project.findProperty("FRAME_OUT")?.toString().orEmpty()
+    inputs.property("SLIDE_OUT", slideOut)
+    inputs.property("FRAME_OUT", frameOut)
+    maxHeapSize = "2g"
+    systemProperty("robolectric.graphicsMode", "NATIVE")
+    environment("SLIDE_OUT", slideOut)
+    environment("FRAME_OUT", frameOut)
 }
 
 dependencies {
@@ -61,4 +77,7 @@ dependencies {
     implementation("com.google.zxing:core:3.5.3")
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
