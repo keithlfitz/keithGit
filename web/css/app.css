@@ -46,12 +46,19 @@
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; }
+html, body {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
 body {
   font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--ink);
-  overflow: hidden;
 }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
@@ -63,6 +70,7 @@ h1, h2, p { margin: 0; }
   position: absolute;
   inset: 0;
   padding-bottom: 72px;
+  overflow: hidden;
 }
 
 .mark {
@@ -91,7 +99,12 @@ h1, h2, p { margin: 0; }
   grid-template-columns: auto minmax(0, 1fr);
   gap: 22px;
   align-items: center;
+  flex: 0 0 auto;
+  min-height: 78px;
   padding: 14px 22px 4px;
+  background: #07080b;
+  position: relative;
+  z-index: 4;
 }
 .ride.is-fresh { animation: glow 1.1s ease; }
 @keyframes glow {
@@ -154,8 +167,11 @@ h1, h2, p { margin: 0; }
 
 .track-wrap {
   position: relative;
+  z-index: 4;
+  flex: 0 0 auto;
   height: 46px;
   margin: 0 22px 8px;
+  background: #07080b;
 }
 .track {
   position: absolute;

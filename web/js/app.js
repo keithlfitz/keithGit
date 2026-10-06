@@ -1,6 +1,6 @@
 (function () {
   var SLIDE_MS = 15000;
-  var SIM_SECONDS = 15;
+  var SIM_SECONDS = 8;
   var RING = 2 * Math.PI * 15;
 
   var ROUTES = [
@@ -938,6 +938,8 @@
     });
   }
 
+  window.addEventListener("wheel", function (event) { event.preventDefault(); }, { passive: false });
+  window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
   $("today").textContent = new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
   buildSlides();
   buildRoutes();
