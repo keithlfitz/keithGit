@@ -1,0 +1,37 @@
+[
+  {
+    "id": "harbor-and-rye",
+    "businessName": "Harbor & Rye",
+    "tagline": "Cocktails and a late kitchen on the water.",
+    "image": "assets/ads/harbor-and-rye.svg",
+    "infoUrl": "https://harbor-and-rye.example"
+  },
+  {
+    "id": "northline-eats",
+    "businessName": "Northline Eats",
+    "tagline": "A bowl, a bun, and a window seat.",
+    "image": "assets/ads/northline-eats.svg",
+    "infoUrl": "https://northline-eats.example"
+  },
+  {
+    "id": "lumen-hotel",
+    "businessName": "Lumen Hotel",
+    "tagline": "Rooms with the city at your feet.",
+    "image": "assets/ads/lumen-hotel.svg",
+    "infoUrl": "https://lumen-hotel.example"
+  },
+  {
+    "id": "pike-street-books",
+    "businessName": "Pike Street Books",
+    "tagline": "New fiction, staff picks, open late.",
+    "image": "assets/ads/pike-street-books.svg",
+    "infoUrl": "https://pike-street-books.example"
+  },
+  {
+    "id": "cedar-dental",
+    "businessName": "Cedar Dental",
+    "tagline": "Cleanings, calm, and a chair with a view.",
+    "image": "assets/ads/cedar-dental.svg",
+    "infoUrl": "https://cedar-dental.example"
+  }
+]
