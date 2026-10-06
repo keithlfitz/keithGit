@@ -438,6 +438,7 @@
   }
 
   function applyView() {
+    window.scrollTo(0, 0);
     ["tablet", "driver", "admin"].forEach(function (name) {
       $("view-" + name).hidden = state.view !== name;
     });
