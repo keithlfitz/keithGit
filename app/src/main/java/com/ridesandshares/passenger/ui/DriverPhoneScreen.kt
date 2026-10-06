@@ -1,6 +1,7 @@
 package com.ridesandshares.passenger.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,12 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -160,39 +161,24 @@ fun DriverPhoneScreen(
                             .padding(vertical = 6.dp),
                     )
                 }
-                val fieldColors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = InkText,
-                    unfocusedTextColor = InkText,
-                    focusedLabelColor = Muted,
-                    unfocusedLabelColor = Muted,
-                    cursorColor = InkText,
-                    focusedBorderColor = InkText,
-                    unfocusedBorderColor = Rule,
-                )
-                OutlinedTextField(
+                LabeledField(
+                    label = "Destination",
                     value = destination,
                     onValueChange = { destination = it },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Destination") },
-                    singleLine = true,
-                    colors = fieldColors,
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedTextField(
+                    LabeledField(
+                        label = "Miles left",
                         value = miles,
                         onValueChange = { miles = it },
                         modifier = Modifier.weight(1f),
-                        label = { Text("Miles left") },
-                        singleLine = true,
-                        colors = fieldColors,
                     )
-                    OutlinedTextField(
+                    LabeledField(
+                        label = "Arrival",
                         value = arrival,
                         onValueChange = { arrival = it },
                         modifier = Modifier.weight(1f),
-                        label = { Text("Arrival") },
-                        singleLine = true,
-                        colors = fieldColors,
                     )
                 }
                 Button(
@@ -211,6 +197,28 @@ fun DriverPhoneScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun LabeledField(
+    label: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(text = label, color = Muted, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            singleLine = true,
+            textStyle = TextStyle(color = InkText, fontSize = 18.sp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(1.dp, Rule, RoundedCornerShape(10.dp))
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+        )
     }
 }
 
