@@ -11,4 +11,6 @@ local.properties
 *.ap_
 *.aab
 app/build/
+driver/build/
+trip/build/
 output/

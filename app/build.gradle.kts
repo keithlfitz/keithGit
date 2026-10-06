@@ -56,12 +56,15 @@ android {
 tasks.withType(org.gradle.api.tasks.testing.Test::class.java).configureEach {
     val slideOut = project.findProperty("SLIDE_OUT")?.toString().orEmpty()
     val frameOut = project.findProperty("FRAME_OUT")?.toString().orEmpty()
+    val tripOut = project.findProperty("TRIP_OUT")?.toString().orEmpty()
     inputs.property("SLIDE_OUT", slideOut)
     inputs.property("FRAME_OUT", frameOut)
+    inputs.property("TRIP_OUT", tripOut)
     maxHeapSize = "2g"
     systemProperty("robolectric.graphicsMode", "NATIVE")
     environment("SLIDE_OUT", slideOut)
     environment("FRAME_OUT", frameOut)
+    environment("TRIP_OUT", tripOut)
 }
 
 dependencies {
@@ -75,6 +78,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("com.google.zxing:core:3.5.3")
+    implementation(project(":trip"))
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.14.1")

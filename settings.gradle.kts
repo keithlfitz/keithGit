@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ridesandshares"
-include(":app")
+include(":app", ":driver", ":trip")

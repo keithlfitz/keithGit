@@ -6,13 +6,20 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.ridesandshares.passenger.data.AdRepository
 import com.ridesandshares.passenger.kiosk.KioskController
+import com.ridesandshares.passenger.trip.TripReceiver
+import com.ridesandshares.passenger.trip.localIpv4
 import com.ridesandshares.passenger.ui.SlideshowScreen
 import com.ridesandshares.passenger.ui.theme.RidesAndSharesTheme
+import com.ridesandshares.trip.TripProgress
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +37,20 @@ class MainActivity : ComponentActivity() {
             },
         )
         val catalog = AdRepository(assets).load()
+        val tabletAddress = localIpv4()
         setContent {
+            var trip by mutableStateOf<TripProgress?>(null)
+            DisposableEffect(Unit) {
+                val receiver = TripReceiver { update -> trip = update }
+                receiver.start()
+                onDispose { receiver.stop() }
+            }
             RidesAndSharesTheme {
-                SlideshowScreen(catalog)
+                SlideshowScreen(
+                    catalog = catalog,
+                    trip = trip,
+                    tabletAddress = tabletAddress,
+                )
             }
         }
     }

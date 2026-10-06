@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import com.ridesandshares.passenger.R
 import com.ridesandshares.passenger.data.Advertisement
 import com.ridesandshares.passenger.data.Catalog
+import com.ridesandshares.trip.TripProgress
 import com.ridesandshares.passenger.slideshow.SlideshowTiming
 import com.ridesandshares.passenger.ui.theme.Ink
 import com.ridesandshares.passenger.ui.theme.InkText
@@ -56,17 +57,34 @@ import com.ridesandshares.passenger.ui.theme.Rule
 import java.io.IOException
 
 @Composable
-fun SlideshowScreen(catalog: Catalog) {
-    when (catalog) {
-        is Catalog.Invalid -> StatusMessage(
-            title = stringResource(R.string.ads_failed),
-            detail = catalog.problems.joinToString("\n"),
-        )
-        is Catalog.Ready -> {
-            if (catalog.ads.isEmpty()) {
-                StatusMessage(title = stringResource(R.string.empty_ads))
-            } else {
-                Player(catalog.ads)
+fun SlideshowScreen(
+    catalog: Catalog,
+    trip: TripProgress? = null,
+    tabletAddress: String? = null,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Ink),
+    ) {
+        TripBanner(trip = trip, tabletAddress = tabletAddress)
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+        ) {
+            when (catalog) {
+                is Catalog.Invalid -> StatusMessage(
+                    title = stringResource(R.string.ads_failed),
+                    detail = catalog.problems.joinToString("\n"),
+                )
+                is Catalog.Ready -> {
+                    if (catalog.ads.isEmpty()) {
+                        StatusMessage(title = stringResource(R.string.empty_ads))
+                    } else {
+                        Player(catalog.ads)
+                    }
+                }
             }
         }
     }

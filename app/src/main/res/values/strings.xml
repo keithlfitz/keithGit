@@ -9,4 +9,7 @@
     <string name="empty_ads">No advertisements to show</string>
     <string name="ads_failed">Advertisements could not be loaded</string>
     <string name="slide_position">%1$d of %2$d</string>
+    <string name="trip_waiting">Waiting for the driver\'s route</string>
+    <string name="trip_share_address">Driver phone sends updates to %1$s</string>
+    <string name="trip_to_destination">to %1$s</string>
 </resources>

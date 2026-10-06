@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rides and Shares Driver</string>
+    <string name="notification_channel">Trip sharing</string>
+    <string name="notification_title">Passenger tablet</string>
+    <string name="notification_sharing">Sharing the remaining distance</string>
+</resources>

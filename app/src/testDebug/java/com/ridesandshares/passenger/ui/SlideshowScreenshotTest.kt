@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.ridesandshares.passenger.data.AdRepository
 import com.ridesandshares.passenger.data.Catalog
 import com.ridesandshares.passenger.ui.theme.RidesAndSharesTheme
+import com.ridesandshares.trip.TripProgress
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -83,6 +84,7 @@ class SlideshowScreenshotTest {
 
         ads.indices.forEach { index ->
             val ad = ads[index]
+            composeRule.onNodeWithText("Waiting for the driver's route").assertIsDisplayed()
             composeRule.onNodeWithText(ad.businessName).assertIsDisplayed()
             composeRule.onNodeWithText(ad.tagline).assertIsDisplayed()
             composeRule.onNodeWithText("Scan for details").assertIsDisplayed()
@@ -108,6 +110,42 @@ class SlideshowScreenshotTest {
                 composeRule.mainClock.advanceTimeBy(15_500)
                 composeRule.waitForIdle()
             }
+        }
+    }
+
+    @Test
+    fun rendersRemainingDistance() {
+        val catalog = AdRepository(RuntimeEnvironment.getApplication().assets).load()
+        val trip = TripProgress(
+            destination = "Pike Place Market",
+            distanceMeters = 6759,
+            durationSeconds = 720,
+            receivedAtEpochMs = System.currentTimeMillis(),
+        )
+        composeRule.mainClock.autoAdvance = false
+        composeRule.setContent {
+            RidesAndSharesTheme {
+                Box(
+                    Modifier
+                        .size(1280.dp, 800.dp)
+                        .fillMaxSize(),
+                ) {
+                    SlideshowScreen(
+                        catalog = catalog,
+                        trip = trip,
+                        tabletAddress = "192.168.4.21",
+                    )
+                }
+            }
+        }
+        composeRule.mainClock.advanceTimeByFrame()
+        composeRule.waitForIdle()
+        composeRule.onNodeWithText("4.2 mi  ·  12 min").assertIsDisplayed()
+        composeRule.onNodeWithText("to Pike Place Market").assertIsDisplayed()
+        composeRule.onNodeWithText("Harbor & Rye").assertIsDisplayed()
+        val tripOut = System.getenv("TRIP_OUT").orEmpty()
+        if (tripOut.isNotEmpty()) {
+            writePng(File(tripOut), snapshot())
         }
     }
 

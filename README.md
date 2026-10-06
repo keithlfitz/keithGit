@@ -4,7 +4,9 @@ Passenger tablet for the back of a rideshare front seat. Businesses advertise to
 
 This is not a trip-request app. It does not talk to Uber or Lyft.
 
-Version 1 is the passenger tablet only. Advertisements are a JSON file bundled in the app, so it runs with no backend. A later advertiser portal can replace that file.
+Advertisements are a JSON file bundled in the passenger app, so the slideshow runs with no backend. A later advertiser portal can replace that file.
+
+A second app, installed on the driver's phone, opens Google Maps navigation and sends the remaining driving distance to the tablet on the same Wi-Fi. The tablet cannot read the Google Maps app on its own.
 
 ## What the passenger sees
 
@@ -32,7 +34,7 @@ echo "sdk.dir=$ANDROID_HOME" > local.properties
 ./gradlew assembleDebug test
 ```
 
-The debug APK is `app/build/outputs/apk/debug/app-debug.apk`.
+The passenger debug APK is `app/build/outputs/apk/debug/app-debug.apk`. The driver debug APK is `driver/build/outputs/apk/debug/driver-debug.apk`.
 
 Release:
 
@@ -69,7 +71,34 @@ In Android Studio, open this directory and run the `app` configuration on a land
 
 Creatives live in `app/src/main/assets/images/`. To change the samples, edit the JSON and drop in new PNGs. `tools/generate_sample_creatives.py` redraws the bundled posters.
 
-The app does not request network access. A bad catalog does not crash the kiosk; the screen explains what failed. A missing image still shows the name, the line, and the QR code.
+A bad catalog does not crash the kiosk; the screen explains what failed. A missing image still shows the name, the line, and the QR code. The passenger app uses the network only to receive the driver's distance updates on the local Wi-Fi.
+
+## Distance to the destination
+
+The passenger tablet shows a banner above the ads. Until the driver phone is sharing, the banner says it is waiting and prints this tablet's address, such as `192.168.4.21:8787`. When an update arrives it shows the remaining driving distance and time, for example `4.2 mi · 12 min`, and the destination the driver entered.
+
+The two phones have to be on the same Wi-Fi. The driver's hotspot works. Updates are a small UDP packet to port 8787, about every 10 seconds. If nothing arrives for 45 seconds the banner goes back to waiting, so a phone that left the car does not leave a stale distance on screen.
+
+The passenger app does not open Google Maps and does not scrape another app's screen. The driver app asks Google's Directions API for the driving distance from the phone's current location, then opens the Google Maps app on the turn-by-turn screen for the same destination.
+
+### Driver phone
+
+Add a Directions API key to `local.properties` (this file stays on your machine):
+
+```
+MAPS_API_KEY=your-key
+```
+
+Enable the Directions API for that key, then build and install the driver app:
+
+```bash
+./gradlew :driver:assembleDebug
+adb install -r driver/build/outputs/apk/debug/driver-debug.apk
+```
+
+On the driver phone, type the address shown on the tablet and the destination, then tap **Start and open Google Maps**. Allow location. Google Maps navigates; the passenger tablet updates as the car moves. Stop sharing from the same screen.
+
+Without a key the driver app still builds, and it tells the driver to add `MAPS_API_KEY` instead of sending a distance.
 
 ## Kiosk mode
 
