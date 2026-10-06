@@ -119,6 +119,7 @@ private fun CreativePane(ad: Advertisement) {
                 bitmap = image,
                 contentDescription = stringResource(R.string.ad_image_description, ad.businessName),
                 modifier = Modifier.fillMaxSize(),
+                alignment = Alignment.CenterStart,
                 contentScale = ContentScale.Crop,
             )
         } else {
