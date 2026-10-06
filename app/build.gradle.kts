@@ -57,14 +57,17 @@ tasks.withType(org.gradle.api.tasks.testing.Test::class.java).configureEach {
     val slideOut = project.findProperty("SLIDE_OUT")?.toString().orEmpty()
     val frameOut = project.findProperty("FRAME_OUT")?.toString().orEmpty()
     val tripOut = project.findProperty("TRIP_OUT")?.toString().orEmpty()
+    val standaloneOut = project.findProperty("STANDALONE_OUT")?.toString().orEmpty()
     inputs.property("SLIDE_OUT", slideOut)
     inputs.property("FRAME_OUT", frameOut)
     inputs.property("TRIP_OUT", tripOut)
+    inputs.property("STANDALONE_OUT", standaloneOut)
     maxHeapSize = "2g"
     systemProperty("robolectric.graphicsMode", "NATIVE")
     environment("SLIDE_OUT", slideOut)
     environment("FRAME_OUT", frameOut)
     environment("TRIP_OUT", tripOut)
+    environment("STANDALONE_OUT", standaloneOut)
 }
 
 dependencies {

@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.sp
 import com.ridesandshares.passenger.R
 import com.ridesandshares.passenger.data.Advertisement
 import com.ridesandshares.passenger.data.Catalog
-import com.ridesandshares.trip.TripProgress
+import com.ridesandshares.passenger.demo.RideDemo
 import com.ridesandshares.passenger.slideshow.SlideshowTiming
 import com.ridesandshares.passenger.ui.theme.Ink
 import com.ridesandshares.passenger.ui.theme.InkText
@@ -59,15 +59,23 @@ import java.io.IOException
 @Composable
 fun SlideshowScreen(
     catalog: Catalog,
-    trip: TripProgress? = null,
-    tabletAddress: String? = null,
+    ride: RideDemo? = null,
+    runClock: Boolean = true,
+    onOpenDriver: () -> Unit = {},
+    onOpenAdmin: () -> Unit = {},
 ) {
+    val demo = ride ?: remember { RideDemo() }
+    if (runClock) RideClock(demo)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Ink),
     ) {
-        TripBanner(trip = trip, tabletAddress = tabletAddress)
+        RideBar(
+            ride = demo,
+            onOpenDriver = onOpenDriver,
+            onOpenAdmin = onOpenAdmin,
+        )
         Box(
             modifier = Modifier
                 .weight(1f)
