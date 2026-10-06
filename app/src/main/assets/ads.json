@@ -1,0 +1,37 @@
+[
+  {
+    "id": "harbor-rye",
+    "businessName": "Harbor & Rye",
+    "tagline": "Espresso and a window seat, two minutes from the curb.",
+    "image": "images/harbor-rye.png",
+    "infoUrl": "https://ridesandshares.example/a/harbor-rye"
+  },
+  {
+    "id": "northline-eats",
+    "businessName": "Northline Eats",
+    "tagline": "Weeknight bowls, ready when the car stops.",
+    "image": "images/northline-eats.png",
+    "infoUrl": "https://ridesandshares.example/a/northline-eats"
+  },
+  {
+    "id": "lumen-hotel",
+    "businessName": "Lumen Hotel",
+    "tagline": "A quiet downtown room. Late checkout on request.",
+    "image": "images/lumen-hotel.png",
+    "infoUrl": "https://ridesandshares.example/a/lumen-hotel"
+  },
+  {
+    "id": "pike-street-books",
+    "businessName": "Pike Street Books",
+    "tagline": "Independent shelves, one block off the route.",
+    "image": "images/pike-street-books.png",
+    "infoUrl": "https://ridesandshares.example/a/pike-street-books"
+  },
+  {
+    "id": "cedar-dental",
+    "businessName": "Cedar Dental",
+    "tagline": "New-patient visits this week. Scan to book.",
+    "image": "images/cedar-dental.png",
+    "infoUrl": "https://ridesandshares.example/a/cedar-dental"
+  }
+]

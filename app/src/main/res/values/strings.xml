@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rides and Shares</string>
+    <string name="device_admin_label">Rides and Shares kiosk</string>
+    <string name="brand_eyebrow">On your route</string>
+    <string name="scan_for_details">Scan for details</string>
+    <string name="ad_image_description">Advertisement for %1$s</string>
+    <string name="qr_description">QR code for %1$s. Scan to open this business.</string>
+    <string name="empty_ads">No advertisements to show</string>
+    <string name="ads_failed">Advertisements could not be loaded</string>
+    <string name="slide_position">%1$d of %2$d</string>
+</resources>
