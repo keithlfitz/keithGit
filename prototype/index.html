@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rides &amp; Shares · Nashville demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="nav">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">R&amp;S</span>
+        <div>
+          <strong>Rides &amp; Shares</strong>
+          <span>Nashville demo</span>
+        </div>
+      </div>
+      <nav aria-label="Demo screens">
+        <a href="#passenger" data-screen="passenger">Passenger</a>
+        <a href="#sync" data-screen="sync">Driver sync</a>
+        <a href="#advertiser" data-screen="advertiser">Advertiser</a>
+        <a href="#fleet" data-screen="fleet">Fleet</a>
+        <a href="#wallet" data-screen="wallet">Wallet</a>
+      </nav>
+      <button type="button" class="text-btn" id="reset-demo">Reset demo</button>
+    </aside>
+
+    <div class="main">
+      <p class="banner">
+        <strong>Demo data.</strong>
+        Fictional Nashville businesses. No live Uber, Lyft, or Google connection.
+        Trip progress is a simulated Routes-style sample.
+      </p>
+
+      <section id="screen-passenger" class="screen" data-screen="passenger">
+        <p class="screen-kicker">Tablet preview · headrest kiosk · RS-0142</p>
+        <div class="bezel">
+          <div class="kiosk">
+            <header class="ride">
+              <div class="ride-end">
+                <span class="kicker">Pickup</span>
+                <strong>Broadway &amp; 5th</strong>
+                <span>Nashville · sample</span>
+              </div>
+              <div class="ride-map-wrap">
+                <div class="ride-map">
+                  <svg id="route-svg" viewBox="0 0 600 86" preserveAspectRatio="none" role="img" aria-label="Simulated route from Broadway to the airport">
+                    <path id="route-base" d="M16 62 C 90 62, 120 28, 180 32 S 280 70, 340 44 S 450 16, 520 30 S 560 52, 584 28" />
+                    <path id="route-done" d="M16 62 C 90 62, 120 28, 180 32 S 280 70, 340 44 S 450 16, 520 30 S 560 52, 584 28" />
+                    <circle cx="16" cy="62" r="4.5" class="pin pin-start" />
+                    <circle cx="584" cy="28" r="4.5" class="pin pin-end" />
+                  </svg>
+                  <div id="trip-car" class="car" aria-hidden="true">
+                    <svg viewBox="0 0 68 32">
+                      <path fill="#f2c56a" d="M6 20h12l5-9h18l7 9h12a5 5 0 0 1 5 5v1H6v-6z" />
+                      <path fill="#1a1814" d="M23 13h8l3 5H20z" opacity=".55" />
+                      <circle cx="22" cy="25" r="4.2" fill="#1a1814" />
+                      <circle cx="48" cy="25" r="4.2" fill="#1a1814" />
+                      <circle cx="22" cy="25" r="1.6" fill="#f2c56a" />
+                      <circle cx="48" cy="25" r="1.6" fill="#f2c56a" />
+                    </svg>
+                  </div>
+                </div>
+                <p class="route-note" id="route-note">Simulated route · not Google Maps</p>
+              </div>
+              <div class="ride-end dest">
+                <span class="kicker">Destination</span>
+                <strong>BNA Airport</strong>
+                <span id="trip-clock" class="clock">18.0 min</span>
+              </div>
+            </header>
+            <div class="ride-meta">
+              <span id="trip-miles">8.4 mi left</span>
+              <span id="trip-clock-small">18:00</span>
+              <span>8.4 mi sample · 18 min · 30× demo clock</span>
+              <button type="button" id="replay-trip" hidden>Replay sample trip</button>
+            </div>
+            <div class="stage">
+              <article class="poster" id="poster" aria-live="polite"></article>
+              <aside class="qr-card">
+                <p class="kicker">Scan the sample page</p>
+                <canvas id="qr-canvas" width="240" height="240" aria-label="QR code"></canvas>
+                <h3 id="qr-name">Advertiser</h3>
+                <p id="qr-tag"></p>
+                <p id="qr-url" class="url"></p>
+                <p class="fine">Fictional business. The code opens a .example link, not a live offer.</p>
+                <div class="ad-timer">
+                  <span>Next ad</span>
+                  <strong id="ad-count">6</strong>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-sync" class="screen" data-screen="sync" hidden>
+        <header class="page-head">
+          <div>
+            <p class="screen-kicker">Driver phone</p>
+            <h1>Send ads to the tablet</h1>
+          </div>
+          <p class="lede">Simulated Bluetooth. This page does not use a radio, a second device, or a network. Files stay in this browser tab.</p>
+        </header>
+        <div class="sync-layout">
+        <div class="phone">
+          <div class="phone-bar"><span>Rides &amp; Shares</span><span>Driver</span></div>
+          <div id="sync-status" class="sync-status"></div>
+          <ol id="file-list" class="file-list"></ol>
+          <div class="sync-actions">
+            <button type="button" id="connect-btn" class="btn primary">Connect</button>
+            <button type="button" id="transfer-btn" class="btn" disabled>Transfer ads</button>
+          </div>
+          <p id="sync-log" class="sync-log" aria-live="polite"></p>
+        </div>
+        <aside class="card sync-aside">
+          <div class="card-head">
+            <h2>What this copies</h2>
+            <span class="pill">Sample files</span>
+          </div>
+          <ul class="aside-list">
+            <li><strong>Lantern Jazz Room</strong><span>Printers Alley · fictional</span></li>
+            <li><strong>Germantown Coffee Roasters</strong><span>Germantown · fictional</span></li>
+            <li><strong>12South Plant Shop</strong><span>12South · fictional</span></li>
+          </ul>
+          <p class="fine">After the transfer, open Passenger. The slideshow grows from 5 ads to 8, and the new slides are marked as coming from this sync. Fleet shows a fresh “last sync” on RS-0142. Advertiser marks those three campaigns as on the tablet.</p>
+        </aside>
+        </div>
+      </section>
+
+      <section id="screen-advertiser" class="screen" data-screen="advertiser" hidden>
+        <header class="page-head">
+          <div>
+            <p class="screen-kicker">Advertiser dashboard</p>
+            <h1>Sample campaigns</h1>
+          </div>
+          <p class="lede">Reporting for fictional businesses. Impressions, scans, and rates are demo figures, not measurements from a live network.</p>
+        </header>
+        <div class="kpis" id="kpis"></div>
+        <div class="split">
+          <div class="card">
+            <div class="card-head">
+              <h2 id="chart-title">Week of sample plays</h2>
+              <span class="pill">Demo chart</span>
+            </div>
+            <div id="chart" class="chart"></div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h2>Campaigns</h2>
+              <span class="pill" id="device-pill">RS-0142</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Business</th>
+                    <th>Impressions</th>
+                    <th>QR scans</th>
+                    <th>Scan rate</th>
+                    <th>On tablet</th>
+                  </tr>
+                </thead>
+                <tbody id="campaign-rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-fleet" class="screen" data-screen="fleet" hidden>
+        <header class="page-head">
+          <div>
+            <p class="screen-kicker">Fleet</p>
+            <h1>Tablets</h1>
+          </div>
+          <p class="lede">Device status in this demo. Battery, sync time, and app version are sample fields. Controls do not reach a real tablet.</p>
+        </header>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tablet</th>
+                  <th>Status</th>
+                  <th>Battery</th>
+                  <th>Last sync</th>
+                  <th>App</th>
+                  <th>Assignment</th>
+                </tr>
+              </thead>
+              <tbody id="fleet-rows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card controls">
+          <div class="card-head">
+            <h2>Controls · <span id="control-target">RS-0142</span></h2>
+            <span class="pill">Simulated</span>
+          </div>
+          <div class="control-row">
+            <button type="button" class="btn" id="btn-restart">Restart slideshow</button>
+            <button type="button" class="btn" id="btn-ping">Ping tablet</button>
+            <button type="button" class="btn" id="btn-charge">Toggle charging</button>
+          </div>
+          <p id="control-note" class="fine">Commands update this demo only.</p>
+        </div>
+      </section>
+
+      <section id="screen-wallet" class="screen" data-screen="wallet" hidden>
+        <header class="page-head">
+          <div>
+            <p class="screen-kicker">Driver wallet</p>
+            <h1>October sample ledger</h1>
+          </div>
+          <p class="lede">Maya Chen is a fictional driver. These incentives are demo numbers, not a bank balance and not paid by Uber or Lyft.</p>
+        </header>
+        <div class="wallet-hero card">
+          <div>
+            <span class="kicker">Month to date · sample</span>
+            <p class="total" id="wallet-total">$256.40</p>
+            <p class="fine">RS-0142 · Nashville · fictional ledger</p>
+          </div>
+          <ul class="bonus-list" id="bonus-list"></ul>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h2>How the sample adds up</h2>
+            <span class="pill">Not a payout</span>
+          </div>
+          <ol class="activity" id="activity"></ol>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div id="toast" class="toast" hidden></div>
+  <script src="qr.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
